@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Model for course - file   file means they will go in different files but here for example we are using one file only
+// Model for course
 type Course struct {
 	CourseId    string  `json:"course"`
 	CourseName  string  `json:"coursename"`
@@ -29,14 +29,13 @@ type Author struct {
 // fake database
 var courses []Course
 
-// MiddleWare or Helper - file
+// MiddleWare or Helper file
 // this will help to accomplish certain tasks
 func (c *Course) isEmpty() bool {
-	// return c.CourseId == "" && c.CourseName == ""
 	return c.CourseName == "" //we didn't mention CourseId because we will generate that
 }
 
-// Controllers - file
+// Controllers
 // serve home route - we are creating it so that our page will not look empty and have some message
 // and also when the request will come from any method than that will be governed by this function
 
@@ -89,10 +88,6 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("No data inside JSON")
 		return
 	}
-
-	//TODO: check only if title is duplicate
-	// steps: loop, title matches with course.coursename, send JSON response
-
 	//generate unique id , string
 	// append course into courses
 
@@ -127,9 +122,6 @@ func updateOneCourse(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
-	// TODO: Send a response when id is not found
-	// or the body is empty, data is insufficent and other edge cases
 }
 
 func deleteOneCourse(w http.ResponseWriter, r *http.Request) {
